@@ -19,14 +19,23 @@ endclass
 program ex01;
 C00 c00;
 C01 c01;
-int vals[4];
+int vals[];
 
 initial begin
   c00 = new;
-  void'(c00.randomize());
-  vals[c00.val] += 1;
+  vals = new[4];
+  repeat (100) begin
+    void'(c00.randomize());
+    vals[c00.val] += 1;
+  end
+  for (int i = 0; i < 4; i += 1) $display(vals[i]);
 
+  c01 = new;
+  vals = new[4];
+  repeat (100) begin
+    void'(c01.randomize());
+    vals[c01.val] += 1;
+  end
   for (int i = 0; i < 4; i += 1) $display(vals[i]);
 end
-
 endprogram
