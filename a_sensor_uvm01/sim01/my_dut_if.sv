@@ -1,0 +1,22 @@
+interface my_dut_if();
+  reg         clk_en;
+  wire        clk;
+  reg         rstx;
+  reg         rstx_dsm;
+  reg   [2:0] cic_order;
+  reg   [2:0] decim_ratio;
+  reg         clear_cic;
+  reg   [9:0] coeff_1_a1;
+  reg   [7:0] coeff_1_a2;
+  reg         clear_iir_stg1;
+  reg   [7:0] coeff_2_a1;
+  reg         clear_iir_stg2;
+  reg         bypass_stg2;
+  reg  [21:0] scale;
+  reg         clear_scale_mult;
+  reg         bypass_noise_gate;
+  reg         clear_noise_gate;
+  real        data_in;
+  wire        data_out_valid;
+  wire [15:0] data_out;
+endinterface
