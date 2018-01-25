@@ -9,10 +9,12 @@ cat > ${testname}_dump.tcl <<!
 database ${testname}.shm
 probe \
  -create top -shm -depth all \
- -all -tasks -functions -uvm -packed 4k -unpacked 16k -ports \
+ -all -tasks -functions -dynamic -uvm -packed 4k -unpacked 16k -ports \
  -memories -waveform -database ${testname}.shm
 probe \
- -create uvm_pkg::uvm_top -shm -depth all -uvm -waveform -database ${testname}.shm
+ -create uvm_pkg::uvm_top -shm -depth all \
+ -all -tasks -functions -dynamic -uvm -packed 4k -unpacked 16k -ports \
+ -memories -waveform -database ${testname}.shm
 #probe \
 # -create cdns_uvm_pkg:: -shm -depth all \
 # -all -tasks -functions -uvm -packed 4k -unpacked 16k -ports \
