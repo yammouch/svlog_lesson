@@ -13,9 +13,6 @@ class my_driver extends uvm_driver #(my_packet);
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    // *::type_id::create does not pass compile.
-    //drvr2sb_port = uvm_analysis_port#(my_packet)::type_id::create(
-    // "drvr2sb_port", this);
     drvr2sb_port = new("drvr2sb_port", this);
     if(!uvm_config_db#(virtual my_dut_if)::get(this, "", "vif", vif))
       uvm_report_fatal( "NOVIF", { "virtual interface must be set for:"
@@ -25,7 +22,6 @@ class my_driver extends uvm_driver #(my_packet);
   task run_phase(uvm_phase phase);
     phase.raise_objection(this);
 
-    init();
     do begin
       seq_item_port.get_next_item(req);
       @(posedge vif.clk);
@@ -39,15 +35,6 @@ class my_driver extends uvm_driver #(my_packet);
     end while(seq_item_port.has_do_available());
 
     phase.drop_objection(this);
-  endtask
-
-  task init();
-    vif.rstx       = 1'b0;
-    vif.data_in_en = 1'b0; #1us;
-    vif.cg.en      = 1'b1;
-
-    repeat (4) @(negedge vif.clk);
-    vif.rstx = 1'b1;
   endtask
 
 endclass

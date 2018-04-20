@@ -13,9 +13,6 @@ class my_monitor extends uvm_monitor;
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    // *::type_id::create does not pass compile.
-    //rcvr2sb_port = uvm_analysis_port#(my_packet)::type_id::create(
-    // "rcvr2sb_port", this);
     rcvr2sb_port = new("rcvr2sb_port", this);
     if (!uvm_config_db#(virtual my_dut_if)::get(this, "", "vif", vif))
       uvm_report_fatal( "NOVIF", { "virtual interface must be set for:"

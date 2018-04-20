@@ -20,9 +20,19 @@ class test1 extends uvm_test;
                                  , get_full_name(), ".vif" });
   endfunction
 
+  task init();
+    vif.rstx       = 1'b0;
+    vif.data_in_en = 1'b0; #1us;
+    vif.cg.en      = 1'b1;
+
+    repeat (4) @(negedge vif.clk);
+    vif.rstx = 1'b1;
+  endtask
+
   task run_phase(uvm_phase phase);
     phase.raise_objection(this);
 
+    init();
     seq = my_sequence::type_id::create("seq", this);
     repeat (8) @(posedge vif.clk);
     seq.start(t_env.agi.seqr);
