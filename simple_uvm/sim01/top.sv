@@ -18,9 +18,6 @@ module top;
   initial begin
     uvm_config_db#(virtual my_dut_if)::set
     ( uvm_root::get(), "*", "vif", my_dut_if);
-    uvm_config_db#(uvm_object_wrapper)::set
-    ( uvm_root::get(), "*.t_env.agi.seqr.run_phase", "default_sequence"
-    , my_sequence::type_id::get() );
 
     run_test();
   end

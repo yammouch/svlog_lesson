@@ -26,7 +26,7 @@ class my_driver extends uvm_driver #(my_packet);
     phase.raise_objection(this);
 
     init();
-    while(seq_item_port.has_do_available()) begin
+    do begin
       seq_item_port.get_next_item(req);
       @(posedge vif.clk);
       vif.operand_a  <= req.operand_a;
@@ -36,7 +36,7 @@ class my_driver extends uvm_driver #(my_packet);
       seq_item_port.item_done();
       @(posedge vif.clk); vif.data_in_en <= 1'b0;
       @(posedge vif.clk);
-    end
+    end while(seq_item_port.has_do_available());
 
     phase.drop_objection(this);
   endtask
