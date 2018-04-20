@@ -24,13 +24,13 @@ class my_monitor extends uvm_monitor;
 
   task run_phase(uvm_phase phase);
     forever begin
-      my_packet pkt;
       @(negedge vif.clk);
       if (vif.data_out_en) begin
+        my_packet pkt;
         pkt = new();
         pkt.sum = vif.sum;
+        rcvr2sb_port.write(pkt);
       end
-      rcvr2sb_port.write(pkt);
     end
   endtask
 endclass

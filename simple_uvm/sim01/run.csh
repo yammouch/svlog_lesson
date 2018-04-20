@@ -13,6 +13,10 @@ probe \
  -create uvm_pkg::uvm_top -shm -depth all \
  -all -tasks -functions -dynamic -uvm -packed 4k -unpacked 16k -ports \
  -memories -waveform -database ${testname}.shm
+probe \
+ -create \$uvm:{uvm_test_top} -shm -depth all \
+ -all -tasks -functions -dynamic -uvm -packed 4k -unpacked 16k -ports \
+ -memories -waveform -database ${testname}.shm
 run
 !
 #set UVM_HOME = /programs/cds/INCISIV10.2USR3/tools.lnx86/uvm-1.1/uvm_lib/uvm_sv
