@@ -18,12 +18,7 @@ class my_scoreboard extends uvm_scoreboard;
   endfunction
 
   function void build_phase(uvm_phase phase);
-    // *::type_id::create does not pass compile
-    //rcvr2sb_port = uvm_analysis_imp_rcvd_pkt::type_id::create(
-    // "rcvr2sb_port", this);
     rcvr2sb_port = new("rcvr2sb_port", this);
-    //drvr2sb_port = uvm_analysis_imp_sent_pkt::type_id::create(
-    // "drvr2sb_port", this);
     drvr2sb_port = new("drvr2sb_port", this);
   endfunction
 
@@ -33,5 +28,23 @@ class my_scoreboard extends uvm_scoreboard;
 
   function void write_sent_pkt(input my_packet pkt);
     que_sent.push_back(pkt);
+  endfunction
+
+  function void check;
+    if (que_sent.size != que_rcvd.size) begin
+      uvm_report_error("LENNMT",
+        $sformatf( "Lengthes differ in %s, sent: %d, received: %d"
+                 , get_full_name(), que_sent.size, que_rcvd.size) );
+    end else begin
+      for (int i = 0; i < que_sent.size; i = i+1) begin
+        if (que_sent[i].sum != que_rcvd[i].sum) begin
+          uvm_report_error("VALNMT",
+            $sformatf(
+             "Values differ in %s, sent: %d + %d = %d, received: %d"
+             , get_full_name(), que_sent[i].operand_a, que_sent[i].operand_b
+             , que_sent[i].sum, que_rcvd[i].sum) );
+        end
+      end
+    end
   endfunction
 endclass

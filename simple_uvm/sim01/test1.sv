@@ -39,4 +39,10 @@ class test1 extends uvm_test;
 
     phase.drop_objection(this);
   endtask
+
+  function void report_phase(uvm_phase phase);
+    //void'(t_env.sbd.que_rcvd.pop_back());
+    //t_env.sbd.que_rcvd[0].sum += 1;
+    t_env.sbd.check();
+  endfunction
 endclass
