@@ -4,6 +4,7 @@ import uvm_pkg::*;
 class my_env extends uvm_env;
   my_agent      ag;
   my_scoreboard sbd;
+  my_subscriber sbs;
 
   `uvm_component_utils(my_env)
 
@@ -15,11 +16,13 @@ class my_env extends uvm_env;
     super.build_phase(phase);
     ag  = my_agent::type_id::create("ag", this);
     sbd = my_scoreboard::type_id::create("sbd", this);
+    sbs = my_subscriber::type_id::create("sbs", this);
   endfunction
 
   function void connect_phase(uvm_phase phase);
     super.connect_phase(phase);
     ag.drv.drvr2sb_port.connect(sbd.drvr2sb_port);
+    ag.drv.drvr2sb_port.connect(sbs.analysis_export);
     ag.mon.rcvr2sb_port.connect(sbd.rcvr2sb_port);
   endfunction
 endclass

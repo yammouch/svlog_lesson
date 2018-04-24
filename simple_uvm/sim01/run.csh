@@ -29,6 +29,9 @@ run
 irun \
  -uvm \
  -input ${testname}_dump.tcl \
+ -coverage ALL \
+ -covtest ${testname} \
+ -covoverwrite \
  +access+r \
  +UVM_TESTNAME=test1 \
  +UVM_CONFIG_DB_TRACE \
@@ -38,6 +41,7 @@ irun \
  my_sequencer.sv \
  my_sequence.sv \
  my_scoreboard.sv \
+ my_subscriber.sv \
  my_monitor.sv \
  my_driver.sv \
  my_agent.sv \
