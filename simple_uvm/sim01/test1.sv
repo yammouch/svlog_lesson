@@ -35,7 +35,7 @@ class test1 extends uvm_test;
     init();
     seq = my_sequence::type_id::create("seq", this);
     repeat (8) @(posedge vif.clk);
-    seq.start(t_env.agi.seqr);
+    seq.start(t_env.ag.seqr);
 
     phase.drop_objection(this);
   endtask

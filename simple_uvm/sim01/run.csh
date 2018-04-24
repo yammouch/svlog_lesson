@@ -39,9 +39,8 @@ irun \
  my_sequence.sv \
  my_scoreboard.sv \
  my_monitor.sv \
- my_agent_out.sv \
  my_driver.sv \
- my_agent_in.sv \
+ my_agent.sv \
  my_env.sv \
  test1.sv \
  dut.v \
