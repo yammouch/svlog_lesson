@@ -45,8 +45,8 @@ module top;
     ( uvm_root::get(), "*.t_env.agi.seqr.run_phase", "default_sequence"
     , my_sequence_ramp::type_id::get() );
 
-    $shm_open;
-    $shm_probe(top, "ASCTFM");
+    //$shm_open;
+    //$shm_probe(top, "ASCTFM");
     run_test();
   end
 
