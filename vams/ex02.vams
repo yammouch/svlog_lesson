@@ -1,0 +1,37 @@
+// irun ex02.vams amsControlSpectre.scs
+
+`timescale 1ns/1ns
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module dut(
+ input wreal signal,
+ input       clk
+);
+
+real signal_i;
+
+analog begin
+  signal_i = signal;
+end
+
+always @(posedge clk) $display(signal_i);
+
+endmodule
+
+module ex02;
+
+real signal;
+reg clk;
+
+dut i_dut(.signal(signal), .clk(clk));
+
+initial begin
+  signal = 0.0; repeat (4) begin
+    clk = 1'b0; signal = signal + 1.0; #1;
+    clk = 1'b1;                        #1; 
+  end
+end
+
+endmodule
